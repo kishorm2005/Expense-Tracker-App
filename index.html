@@ -1,0 +1,294 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vault | Personal Finance</title>
+
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body>
+
+<div class="app-layout">
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+        <div class="brand">
+            <div class="brand-logo">V</div>
+            <h2>Vault</h2>
+        </div>
+
+        <p class="nav-heading">OVERVIEW</p>
+
+        <nav>
+            <a href="#dashboard" class="nav-link active">
+                <span>▦</span> Dashboard
+            </a>
+
+            <a href="#analytics" class="nav-link">
+                <span>▥</span> Analytics
+            </a>
+
+            <a href="#goals" class="nav-link">
+                <span>◎</span> Savings Goals
+            </a>
+
+            <p class="nav-heading">FINANCE</p>
+
+            <a href="#transactions" class="nav-link">
+                <span>⇄</span> Transactions
+            </a>
+        </nav>
+
+        <div class="sidebar-bottom">
+            <div class="mini-profile">
+                <div class="avatar">KM</div>
+                <div>
+                    <strong>Kishor M</strong>
+                    <small>Personal Account</small>
+                </div>
+            </div>
+        </div>
+
+    </aside>
+
+
+    <!-- MAIN CONTENT -->
+    <main class="main-content" id="dashboard">
+
+        <!-- TOP HEADER -->
+        <header class="top-header">
+            <div>
+                <p class="welcome-label">YOUR FINANCIAL SPACE</p>
+                <h1>Good evening, Kishor 👋</h1>
+                <p class="sub-heading">
+                    Here's what's happening with your money.
+                </p>
+            </div>
+
+            <div class="header-right">
+                <div class="date-box" id="today"></div>
+                <div class="avatar">KM</div>
+            </div>
+        </header>
+
+
+        <!-- FINANCIAL SUMMARY -->
+        <section class="stats-grid">
+
+            <div class="stat-card featured">
+                <div class="stat-top">
+                    <span>NET BALANCE</span>
+                    <span class="stat-icon">₹</span>
+                </div>
+                <h2 id="balance">₹0</h2>
+                <p>Income minus expenses</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span>MONTHLY INCOME</span>
+                    <span class="stat-icon green">↗</span>
+                </div>
+                <h2 id="income">₹0</h2>
+                <p class="positive">Money received</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span>TOTAL SPENT</span>
+                    <span class="stat-icon red">↘</span>
+                </div>
+                <h2 id="expense">₹0</h2>
+                <p class="negative">Money spent</p>
+            </div>
+
+            <div class="stat-card">
+                <div class="stat-top">
+                    <span>SAVINGS RATE</span>
+                    <span class="stat-icon purple">%</span>
+                </div>
+                <h2 id="savingsRate">0%</h2>
+                <p>Income saved</p>
+            </div>
+
+        </section>
+
+
+        <!-- CHARTS -->
+        <section class="analytics-grid" id="analytics">
+
+            <div class="panel cashflow-panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <h3>Cash Flow Overview</h3>
+                        <p>Income and expenses throughout the year</p>
+                    </div>
+
+                    <div class="chart-legend">
+                        <span><i class="dot income-dot"></i> Income</span>
+                        <span><i class="dot expense-dot"></i> Expenses</span>
+                    </div>
+                </div>
+
+                <div class="line-chart-area">
+                    <canvas id="cashFlowChart"></canvas>
+                </div>
+
+            </div>
+
+
+            <div class="panel spending-panel">
+
+                <div class="panel-heading">
+                    <div>
+                        <h3>Spending</h3>
+                        <p>By category</p>
+                    </div>
+                </div>
+
+                <div class="donut-chart-area">
+                    <canvas id="spendingChart"></canvas>
+                </div>
+
+                <div id="category-legend" class="category-legend"></div>
+
+            </div>
+
+        </section>
+
+
+        <!-- TRANSACTIONS AND GOALS -->
+        <section class="bottom-grid">
+
+            <div class="panel transactions-panel" id="transactions">
+
+                <div class="panel-heading">
+                    <div>
+                        <h3>Recent Transactions</h3>
+                        <p>Your latest money activity</p>
+                    </div>
+                </div>
+
+                <div id="transactions-list">
+                    <p class="empty-message">
+                        No transactions yet. Add your first transaction.
+                    </p>
+                </div>
+
+            </div>
+
+
+            <div class="panel goals-panel" id="goals">
+
+                <div class="panel-heading">
+                    <div>
+                        <h3>Savings Goals</h3>
+                        <p>Build your financial future</p>
+                    </div>
+                </div>
+
+                <div class="goal-item">
+                    <div class="goal-title">
+                        <span>🚀 Emergency Fund</span>
+                        <strong id="goal-percent">0%</strong>
+                    </div>
+
+                    <div class="progress-track">
+                        <div class="progress-fill" id="goal-progress"></div>
+                    </div>
+
+                    <p id="goal-amount">₹0 saved of ₹50,000</p>
+                </div>
+
+                <div class="goal-note">
+                    Your savings goal is based on your current positive balance.
+                </div>
+
+            </div>
+
+        </section>
+
+
+        <!-- ADD TRANSACTION -->
+        <section class="panel add-transaction-panel">
+
+            <div class="panel-heading">
+                <div>
+                    <h3>Add New Transaction</h3>
+                    <p>Keep your financial records updated</p>
+                </div>
+            </div>
+
+            <form id="transaction-form">
+
+                <div class="form-field">
+                    <label for="title">Transaction Name</label>
+                    <input
+                        type="text"
+                        id="title"
+                        placeholder="Example: Monthly Salary"
+                        required
+                    >
+                </div>
+
+                <div class="form-field">
+                    <label for="amount">Amount (₹)</label>
+                    <input
+                        type="number"
+                        id="amount"
+                        placeholder="Enter amount"
+                        min="0.01"
+                        step="0.01"
+                        required
+                    >
+                </div>
+
+                <div class="form-field">
+                    <label for="type">Transaction Type</label>
+                    <select id="type">
+                        <option value="expense">Expense</option>
+                        <option value="income">Income</option>
+                    </select>
+                </div>
+
+                <div class="form-field">
+                    <label for="category">Category</label>
+                    <select id="category">
+                        <option value="Food">Food</option>
+                        <option value="Travel">Travel</option>
+                        <option value="Shopping">Shopping</option>
+                        <option value="Bills">Bills</option>
+                        <option value="Salary">Salary</option>
+                        <option value="Health">Health</option>
+                        <option value="Education">Education</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <button type="submit" class="add-btn">
+                    + Add Transaction
+                </button>
+
+            </form>
+
+        </section>
+
+
+        <footer>
+            Vault Finance Dashboard · Built by Kishor M
+        </footer>
+
+    </main>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
